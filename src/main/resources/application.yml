@@ -1,0 +1,9 @@
+management:
+  server:
+    port: 8090
+    ssl.enabled: false
+
+logging:
+  level:
+    test: debug
+    root: info

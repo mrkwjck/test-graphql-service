@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-spring-boot-service
+spec:
+  selector:
+    app: test-spring-boot-service
+  ports:
+    - name: "public"
+      protocol: "TCP"
+      port: 8080
+      targetPort: 8080
+    - name: "actuator"
+      protocol: "TCP"
+      port: 8090
+      targetPort: 8090
+  type: LoadBalancer
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-spring-boot-service
+spec:
+  selector:
+    matchLabels:
+      app: test-spring-boot-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: test-spring-boot-service
+    spec:
+      containers:
+        - name: test-spring-boot-service
+          image: test-spring-boot-service:0.3.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+            - containerPort: 8090

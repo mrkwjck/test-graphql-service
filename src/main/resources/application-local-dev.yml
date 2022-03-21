@@ -1,0 +1,11 @@
+management:
+  endpoints.web.exposure.include: '*'
+
+server:
+  port: 8080
+  ssl.enabled: false
+
+logging:
+  level:
+    test: debug
+    root: info
