@@ -7,3 +7,7 @@ logging:
   level:
     test: debug
     root: info
+spring:
+  kafka:
+    streams:
+      application-id: "test-streams-app"

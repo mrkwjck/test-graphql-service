@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.4</version>
+        <version>2.7.3</version>
         <relativePath/>
     </parent>
 
@@ -23,10 +23,11 @@
         <spock-core.version>2.2-M1-groovy-3.0</spock-core.version>
         <gmavenplus-plugin.version>1.13.1</gmavenplus-plugin.version>
         <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
-        <lombok.version>1.18.22</lombok.version>
+        <lombok.version>1.18.24</lombok.version>
         <surefire.version>3.0.0-M5</surefire.version>
         <maven-failsafe-plugin-version>3.0.0-M5</maven-failsafe-plugin-version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
+        <brave-kafka-instrumentation.version>5.13.11</brave-kafka-instrumentation.version>
 
         <!-- MISC - config -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -59,6 +60,11 @@
         <!-- SPRING -->
 
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
@@ -87,6 +93,11 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-kubernetes-fabric8-config</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
         </dependency>
 
         <!-- TESTING -->
@@ -136,8 +147,19 @@
             <scope>test</scope>
         </dependency>
 
-
         <!-- MISC -->
+
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-streams</artifactId>
+            <version>${kafka.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.zipkin.brave</groupId>
+            <artifactId>brave-instrumentation-kafka-clients</artifactId>
+            <version>${brave-kafka-instrumentation.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>

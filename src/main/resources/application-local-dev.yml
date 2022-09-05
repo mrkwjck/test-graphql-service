@@ -9,3 +9,8 @@ logging:
   level:
     test: debug
     root: info
+
+spring:
+  kafka:
+    streams:
+      bootstrap-servers: "localhost:9092"
