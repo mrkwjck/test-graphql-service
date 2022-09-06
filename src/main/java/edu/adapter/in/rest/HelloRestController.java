@@ -1,4 +1,4 @@
-package test.adapter.in.rest;
+package edu.adapter.in.rest;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

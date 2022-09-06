@@ -1,4 +1,4 @@
-package test;
+package edu;
 
 import org.springframework.context.annotation.Configuration;
 

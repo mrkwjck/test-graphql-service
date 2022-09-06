@@ -1,8 +1,8 @@
-package test.adapter.in.rest
+package edu.adapter.in.rest
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.web.servlet.MockMvc
-import test.IntegrationTest
+import edu.IntegrationTest
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
