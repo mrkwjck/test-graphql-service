@@ -21,6 +21,9 @@
         <spring-cloud.version>2021.0.1</spring-cloud.version>
         <groovy.version>3.0.10</groovy.version>
         <spock-core.version>2.2-M1-groovy-3.0</spock-core.version>
+        <junit.version>5.9.0</junit.version>
+        <assertj.version>3.23.1</assertj.version>
+        <mockito.version>4.7.0</mockito.version>
         <gmavenplus-plugin.version>1.13.1</gmavenplus-plugin.version>
         <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
         <lombok.version>1.18.24</lombok.version>
@@ -147,6 +150,40 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-streams-test-utils</artifactId>
+            <version>${kafka.version}</version>
+        </dependency>
+
         <!-- MISC -->
 
         <dependency>
@@ -171,6 +208,11 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons-lang3.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
@@ -199,6 +241,7 @@
                 <configuration>
                     <testClassesDirectory>${basedir}/target/test-classes</testClassesDirectory>
                     <testSourceDirectory>${basedir}/src/test/groovy</testSourceDirectory>
+                    <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
                     <includes>
                         <include>**/*Test.class</include>
                     </includes>
@@ -228,6 +271,7 @@
                             <classesDirectory>${project.build.outputDirectory}</classesDirectory>
                             <testClassesDirectory>${basedir}/target/integration-test-classes</testClassesDirectory>
                             <testSourceDirectory>${basedir}/src/integration-test/groovy</testSourceDirectory>
+                            <testSourceDirectory>${basedir}/src/integration-test/java</testSourceDirectory>
                             <skipTests>${skip.integration.tests}</skipTests>
                         </configuration>
                     </execution>
