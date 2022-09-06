@@ -337,7 +337,7 @@
                         <image>${project.artifactId}:${project.version}</image>
                     </to>
                     <container>
-                        <mainClass>test.TestSpringBootServiceApplication</mainClass>
+                        <mainClass>edu.TestSpringBootServiceApplication</mainClass>
                     </container>
                 </configuration>
                 <executions>

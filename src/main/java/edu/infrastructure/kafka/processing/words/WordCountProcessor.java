@@ -1,5 +1,6 @@
-package edu.infrastructure.kafka.processing;
+package edu.infrastructure.kafka.processing.words;
 
+import edu.infrastructure.kafka.KafkaTopic;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.common.serialization.Serde;
@@ -12,7 +13,6 @@ import org.apache.kafka.streams.kstream.KTable;
 import org.apache.kafka.streams.kstream.Produced;
 import org.apache.kafka.streams.kstream.ValueMapper;
 import org.springframework.stereotype.Component;
-import edu.infrastructure.kafka.KafkaTopic;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;

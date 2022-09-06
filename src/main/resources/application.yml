@@ -5,9 +5,9 @@ management:
 
 logging:
   level:
-    test: debug
+    edu: debug
     root: info
 spring:
   kafka:
     streams:
-      application-id: "test-streams-app"
+      application-id: "test-streams-app-1"
