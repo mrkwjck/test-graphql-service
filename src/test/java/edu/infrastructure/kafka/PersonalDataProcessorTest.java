@@ -28,7 +28,7 @@ class PersonalDataProcessorTest {
     @BeforeEach
     void setup() {
         final StreamsBuilder streamsBuilder = new StreamsBuilder();
-        final PersonalDataProcessor processor = new PersonalDataProcessor(streamsBuilder, objectMapper);
+        final PersonalDataProcessor processor = new PersonalDataProcessor(streamsBuilder);
 
         processor.buildTopology();
 
@@ -88,7 +88,7 @@ class PersonalDataProcessorTest {
     }
 
     private static Person person2() {
-        return new Person("per3", "Jane", "Doe", "adr2");
+        return new Person("per2", "Jane", "Doe", "adr2");
     }
 
     private static Person person3() {

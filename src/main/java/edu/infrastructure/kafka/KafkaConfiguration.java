@@ -1,6 +1,5 @@
 package edu.infrastructure.kafka;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsBuilder;
@@ -51,8 +50,8 @@ class KafkaConfiguration {
     }
 
     @Bean
-    PersonalDataProcessor personalDataProcessor(final StreamsBuilder streamsBuilder, final ObjectMapper objectMapper) {
-        return new PersonalDataProcessor(streamsBuilder, objectMapper);
+    PersonalDataProcessor personalDataProcessor(final StreamsBuilder streamsBuilder) {
+        return new PersonalDataProcessor(streamsBuilder);
     }
 
     @Bean

@@ -1,7 +1,5 @@
 package edu.infrastructure.kafka;
 
-import com.fasterxml.jackson.core.JacksonException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.serialization.Serdes;
@@ -13,6 +11,7 @@ import org.apache.kafka.streams.kstream.KeyValueMapper;
 import org.apache.kafka.streams.kstream.Materialized;
 import org.apache.kafka.streams.kstream.Produced;
 import org.apache.kafka.streams.kstream.ValueJoiner;
+import org.springframework.kafka.support.serializer.JsonSerde;
 
 import javax.annotation.PostConstruct;
 
@@ -21,44 +20,30 @@ import javax.annotation.PostConstruct;
 class PersonalDataProcessor {
 
     private final StreamsBuilder streamsBuilder;
-    private final ObjectMapper objectMapper;
 
     @PostConstruct
     void buildTopology() {
-        final KStream<String, String> personStream = streamsBuilder.stream(
-                KafkaTopic.INPUT_PERSON.getTopicName(), Consumed.with(Serdes.String(), Serdes.String()));
-        final GlobalKTable<String, String> addressGlobalTable = streamsBuilder.globalTable(
-                KafkaTopic.INPUT_ADDRESS.getTopicName(), Materialized.with(Serdes.String(), Serdes.String()));
+        final JsonSerde<Person> personSerde = new JsonSerde<>(Person.class);
+        final JsonSerde<Address> addressSerde = new JsonSerde<>(Address.class);
+        final JsonSerde<PersonalData> personalDataSerde = new JsonSerde<>(PersonalData.class);
+
+        final KStream<String, Person> personStream = streamsBuilder.stream(
+                KafkaTopic.INPUT_PERSON.getTopicName(), Consumed.with(Serdes.String(), personSerde));
+        final GlobalKTable<String, Address> addressGlobalTable = streamsBuilder.globalTable(
+                KafkaTopic.INPUT_ADDRESS.getTopicName(), Materialized.with(Serdes.String(), addressSerde));
 
         personStream
                 .join(addressGlobalTable, getPersonAddressKeyMapper(), getPersonAddressJoiner())
-                .to(KafkaTopic.OUTPUT_PERSONAL_DATA.getTopicName(), Produced.with(Serdes.String(), Serdes.String()));
+                .selectKey((personalDataKey, personalDataValue) -> personalDataValue.person().id())
+                .to(KafkaTopic.OUTPUT_PERSONAL_DATA.getTopicName(), Produced.with(Serdes.String(), personalDataSerde));
     }
 
-    private ValueJoiner<String, String, String>  getPersonAddressJoiner() {
-        return (personJson, addressJson) -> {
-            try {
-                final Person person = objectMapper.readValue(personJson, Person.class);
-                final Address address = objectMapper.readValue(addressJson, Address.class);
-                final PersonalData personalData = new PersonalData(person, address);
-                return objectMapper.writeValueAsString(personalData);
-            } catch (final JacksonException je) {
-                log.error(je.getMessage(), je);
-            }
-            return null;
-        };
+    private ValueJoiner<Person, Address, PersonalData>  getPersonAddressJoiner() {
+        return PersonalData::new;
     }
 
-    private KeyValueMapper<String, String, String> getPersonAddressKeyMapper() {
-        return (personJsonKey, personJsonValue) -> {
-           try {
-                final Person person = objectMapper.readValue(personJsonValue, Person.class);
-                return person.addressId();
-           } catch (final JacksonException je) {
-               log.error(je.getMessage(), je);
-           }
-           return null;
-        };
+    private KeyValueMapper<String, Person, String> getPersonAddressKeyMapper() {
+        return (personKey, personValue) -> personValue.addressId();
     }
 
 }
