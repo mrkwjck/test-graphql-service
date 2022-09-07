@@ -1,4 +1,4 @@
-package edu.infrastructure.kafka.processing.personaldata;
+package edu.infrastructure.kafka;
 
 record Address(String id,
                String street,

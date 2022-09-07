@@ -1,8 +1,7 @@
-package edu.infrastructure.kafka.processing.personaldata;
+package edu.infrastructure.kafka;
 
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.infrastructure.kafka.KafkaTopic;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.serialization.Serdes;
@@ -14,12 +13,10 @@ import org.apache.kafka.streams.kstream.KeyValueMapper;
 import org.apache.kafka.streams.kstream.Materialized;
 import org.apache.kafka.streams.kstream.Produced;
 import org.apache.kafka.streams.kstream.ValueJoiner;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
 @Slf4j
-@Component
 @RequiredArgsConstructor
 class PersonalDataProcessor {
 

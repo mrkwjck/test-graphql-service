@@ -1,11 +1,14 @@
 package edu.infrastructure.kafka;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.common.serialization.Serdes;
+import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.annotation.EnableKafkaStreams;
 import org.springframework.kafka.annotation.KafkaStreamsDefaultConfiguration;
@@ -17,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+@Profile("!test")
 @Configuration
 @EnableKafka
 @EnableKafkaStreams
@@ -44,6 +48,16 @@ class KafkaConfiguration {
                 StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName()
         );
         return new KafkaStreamsConfiguration(parameters);
+    }
+
+    @Bean
+    PersonalDataProcessor personalDataProcessor(final StreamsBuilder streamsBuilder, final ObjectMapper objectMapper) {
+        return new PersonalDataProcessor(streamsBuilder, objectMapper);
+    }
+
+    @Bean
+    WordCountProcessor wordCountProcessor(final StreamsBuilder streamsBuilder) {
+        return new WordCountProcessor(streamsBuilder);
     }
 
     private NewTopic createTopicSpecification(final KafkaTopic topic) {

@@ -284,7 +284,8 @@
                 <version>${jacoco-maven-plugin.version}</version>
                 <configuration>
                     <excludes>
-                        <exclude>**/TestSpringBootServiceApplication.class</exclude>
+                        <exclude>**/TestSpringBootServiceApplication.*</exclude>
+                        <exclude>**/*Configuration.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>

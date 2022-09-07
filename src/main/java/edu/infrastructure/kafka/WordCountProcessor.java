@@ -1,6 +1,5 @@
-package edu.infrastructure.kafka.processing.words;
+package edu.infrastructure.kafka;
 
-import edu.infrastructure.kafka.KafkaTopic;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.common.serialization.Serde;
@@ -12,12 +11,10 @@ import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KTable;
 import org.apache.kafka.streams.kstream.Produced;
 import org.apache.kafka.streams.kstream.ValueMapper;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
 
-@Component
 @RequiredArgsConstructor
 class WordCountProcessor {
 

@@ -1,6 +1,5 @@
-package edu.infrastructure.kafka.processing.words;
+package edu.infrastructure.kafka;
 
-import edu.infrastructure.kafka.KafkaTopic;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsBuilder;
@@ -19,9 +18,9 @@ import java.util.Properties;
 
 class WordCountProcessorTest {
 
-    TestInputTopic<String, String> inputTopic;
-    TestOutputTopic<String, String> outputTopic;
-    TopologyTestDriver topologyTestDriver;
+    private TestInputTopic<String, String> inputTopic;
+    private TestOutputTopic<String, String> outputTopic;
+    private TopologyTestDriver topologyTestDriver;
 
     @BeforeEach
     void setup() {
