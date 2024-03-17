@@ -9,6 +9,8 @@ logging:
     root: info
 
 spring:
-  kafka:
-    streams:
-      application-id: "test-streams-app-1"
+  graphql:
+    path: api
+    graphiql:
+      enabled: true
+      path: api/doc
